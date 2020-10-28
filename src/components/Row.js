@@ -15,7 +15,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
         async function fetchData() {
             const request = await axios.get(fetchUrl)
             setMovies(request.data.results)
-            console.log(request.data.results)
+            // console.log("res",request.data.results)
             return request
         }
         fetchData()
@@ -29,21 +29,29 @@ function Row({ title, fetchUrl, isLargeRow }) {
         width: '100%',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
+            autoplay: 1 ,
         },
     };
 
     const handleClick = (movie) => {
+
+        console.log("movie name ",movie.name)
         if (trailerUrl) {
             setTrailerUrl('')
         } else {
             movieTrailer(movie?.name || "").then(url => {
                 const urlParams = new URLSearchParams(new URL(url).search)
                 setTrailerUrl(urlParams.get('v'))
+                console.log(urlParams)
+                console.log(urlParams.get('v'))
+                // console.log({movie})
+              
             }).catch((err) => console.log(err))
         }
     }
+    console.log({movies})
 
+    // console.log(trailerUrl)
     return (
         <div className="row">
             {/* title */}
